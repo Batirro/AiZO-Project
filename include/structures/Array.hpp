@@ -1,10 +1,10 @@
 #pragma once
 
 class Array {
-    private:
+private:
         int *data;
         int size;
-    public:
+public:
         explicit Array(int size);
         ~Array();
 

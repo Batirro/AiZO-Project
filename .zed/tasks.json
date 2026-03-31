@@ -1,0 +1,14 @@
+[
+    {
+        "label": "CMake: Configure",
+        "command": "cmake -B build -S ."
+    },
+    {
+        "label": "CMake: Build",
+        "command": "cmake --build build"
+    },
+    {
+        "label": "CMake: Configure & Build",
+        "command": "cmake -B build -S . && cmake --build build"
+    }
+]

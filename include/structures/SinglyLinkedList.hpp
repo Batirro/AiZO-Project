@@ -25,6 +25,9 @@ public:
     void set(int index, int value);
     int getSize() const;
 
+    Node* getHead() const { return head; }
+    void setHead(Node* newHead) { head = newHead; }
+
     void pushFront(int value);
     void pushBack(int value);
     void remove(int index);

@@ -17,12 +17,48 @@ void InsertionSort::sort(Array& arr) {
     }
 }
 
-// TODO: Implementacja dla SinglyLinkedList
 void InsertionSort::sort(SinglyLinkedList& list) {
-    // Implementacja wkrótce
+    Node* current = list.getHead();
+    Node* sorted = nullptr;
+
+    while (current != nullptr) {
+        Node* next = current->next;
+
+        if (sorted == nullptr || sorted->data >= current->data) {
+            current->next = sorted;
+            sorted = current;
+        } else {
+            Node* search = sorted;
+            while (search->next != nullptr && search->next->data < current->data) {
+                search = search->next;
+            }
+            current->next = search->next;
+            search->next = current;
+        }
+        current = next;
+    }
+    list.setHead(sorted);
 }
 
-// TODO: Implementacja dla DoubleLinkedList
 void InsertionSort::sort(DoubleLinkedList& list) {
-    // Implementacja wkrótce
+    DNode* head = list.getHead();
+    if (!head || !head->next) return;
+
+    DNode* current = head->next;
+    while (current != nullptr) {
+        int key = current->data;
+        DNode* search = current->prev;
+
+        while (search != nullptr && search->data > key) {
+            search->next->data = search->data;
+            search = search->prev;
+        }
+        
+        if (search == nullptr) {
+            head->data = key;
+        } else {
+            search->next->data = key;
+        }
+        current = current->next;
+    }
 }

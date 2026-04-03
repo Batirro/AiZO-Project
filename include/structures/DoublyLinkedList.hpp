@@ -29,6 +29,11 @@ public:
     void set(int index, int value);
     int getSize() const;
 
+    DNode* getHead() const { return head; }
+    DNode* getTail() const { return tail; }
+    void setHead(DNode* newHead) { head = newHead; }
+    void setTail(DNode* newTail) { tail = newTail; }
+
     void pushFront(int value);
     void pushBack(int value);
     void remove(int index);

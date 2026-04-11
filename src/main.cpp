@@ -1,8 +1,9 @@
 #include <iostream>
 #include "Parameters.h"
+#include "modes/SingleFileMode.hpp"
 
 int main(int argc, char **argv) {
-    int result = Parameters::readParameters(argc - 1, argv + 1);
+    int result = Parameters::readParameters(argc, argv);
     if (result != 0) {
         std::cerr << "Błąd wczytywania parametrów." << std::endl;
         return 1;
@@ -10,8 +11,12 @@ int main(int argc, char **argv) {
 
     switch (Parameters::runMode) {
         case Parameters::RunModes::help:
-        Parameters::help();
-        break;
+            Parameters::help();
+            break;
+            
+        case Parameters::RunModes::singleFile:
+            SingleFileMode::run();
+            break;
 
         case Parameters::RunModes::undefined:
         default:

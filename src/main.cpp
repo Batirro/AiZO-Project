@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Parameters.h"
 #include "modes/SingleFileMode.hpp"
+#include "modes/BenchmarkMode.hpp"
 
 int main(int argc, char **argv) {
     int result = Parameters::readParameters(argc, argv);
@@ -16,6 +17,10 @@ int main(int argc, char **argv) {
             
         case Parameters::RunModes::singleFile:
             SingleFileMode::run();
+            break;
+            
+        case Parameters::RunModes::benchmark:
+            BenchmarkMode::run();
             break;
 
         case Parameters::RunModes::undefined:

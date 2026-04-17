@@ -2,11 +2,11 @@
 
 class Array;
 class SinglyLinkedList;
-class DoubleLinkedList;
+class DoublyLinkedList;
 
 class Validator {
 public:
     static bool isSorted(const Array& arr);
     static bool isSorted(const SinglyLinkedList& list);
-    static bool isSorted(const DoubleLinkedList& list);
+    static bool isSorted(const DoublyLinkedList& list);
 };

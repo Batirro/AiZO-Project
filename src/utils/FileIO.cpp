@@ -41,14 +41,14 @@ SinglyLinkedList* FileIO::readSinglyLinkedList(const std::string& filename) {
     return list;
 }
 
-DoubleLinkedList* FileIO::readDoubleLinkedList(const std::string& filename) {
+DoublyLinkedList* FileIO::readDoublyLinkedList(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) return nullptr;
     
     int size;
     if (!(file >> size)) return nullptr;
     
-    DoubleLinkedList* list = new DoubleLinkedList();
+    DoublyLinkedList* list = new DoublyLinkedList();
     int value;
     for (int i = 0; i < size; ++i) {
         if (file >> value) {
@@ -86,7 +86,7 @@ bool FileIO::writeSinglyLinkedList(const std::string& filename, const SinglyLink
     return true;
 }
 
-bool FileIO::writeDoubleLinkedList(const std::string& filename, const DoubleLinkedList& list) {
+bool FileIO::writeDoublyLinkedList(const std::string& filename, const DoublyLinkedList& list) {
     std::ofstream file(filename);
     if (!file.is_open()) return false;
     

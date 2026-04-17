@@ -40,7 +40,7 @@ void InsertionSort::sort(SinglyLinkedList& list) {
     list.setHead(sorted);
 }
 
-void InsertionSort::sort(DoubleLinkedList& list) {
+void InsertionSort::sort(DoublyLinkedList& list) {
     DNode* head = list.getHead();
     if (!head || !head->next) return;
 

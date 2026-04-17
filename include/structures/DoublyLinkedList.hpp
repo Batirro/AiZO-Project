@@ -8,7 +8,7 @@ struct DNode {
   explicit DNode(int data) : data(data), next(nullptr), prev(nullptr) {}
 };
 
-class DoubleLinkedList {
+class DoublyLinkedList {
 private:
     DNode* head;
     DNode* tail;
@@ -17,12 +17,12 @@ private:
     DNode* getNode(int index) const;
 
 public:
-    DoubleLinkedList();
-    ~DoubleLinkedList();
+    DoublyLinkedList();
+    ~DoublyLinkedList();
 
     // Rule of Three
-    DoubleLinkedList(const DoubleLinkedList& other);
-    DoubleLinkedList& operator=(const DoubleLinkedList& other);
+    DoublyLinkedList(const DoublyLinkedList& other);
+    DoublyLinkedList& operator=(const DoublyLinkedList& other);
 
     // Gettery i Settery
     int get(int index) const;

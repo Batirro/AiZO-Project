@@ -3,7 +3,7 @@
 
 class Stack {
 private:
-    DoubleLinkedList list;
+    DoublyLinkedList list;
     // getSize() delegujemy do listy
 public:
     Stack() = default;

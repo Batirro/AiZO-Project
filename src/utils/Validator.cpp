@@ -27,7 +27,7 @@ bool Validator::isSorted(const SinglyLinkedList& list) {
     return true;
 }
 
-bool Validator::isSorted(const DoubleLinkedList& list) {
+bool Validator::isSorted(const DoublyLinkedList& list) {
     DNode* head = list.getHead();
     if (!head || !head->next) return true;
     

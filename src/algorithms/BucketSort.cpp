@@ -92,7 +92,7 @@ void BucketSort::sort(SinglyLinkedList& list) {
     delete[] buckets;
 }
 
-void BucketSort::sort(DoubleLinkedList& list) {
+void BucketSort::sort(DoublyLinkedList& list) {
     DNode* head = list.getHead();
     if (!head || !head->next) return;
 

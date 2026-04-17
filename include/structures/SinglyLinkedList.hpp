@@ -11,6 +11,7 @@ class SinglyLinkedList {
 private:
     Node *head; // Pointer na pierwszy node
     int size;
+    Node* getNode(int index) const;
 
 public:
     SinglyLinkedList();

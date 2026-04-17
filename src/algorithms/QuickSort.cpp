@@ -114,7 +114,7 @@ static void quickSortDLL(DNode* low, DNode* high) {
     }
 }
 
-void QuickSort::sort(DoubleLinkedList& list) {
+void QuickSort::sort(DoublyLinkedList& list) {
     DNode* head = list.getHead();
     DNode* tail = list.getTail();
     

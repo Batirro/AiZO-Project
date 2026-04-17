@@ -75,7 +75,7 @@ void SingleFileMode::run() {
         delete list;
 
     } else if (Parameters::structure == Parameters::Structures::doubleList) {
-        DoubleLinkedList* list = FileIO::readDoubleLinkedList(Parameters::inputFile);
+        DoublyLinkedList* list = FileIO::readDoublyLinkedList(Parameters::inputFile);
         if (!list) {
             std::cerr << "Błąd: Nie można wczytać pliku do listy dwukierunkowej!" << std::endl;
             return;
@@ -97,7 +97,7 @@ void SingleFileMode::run() {
 
         isSorted = Validator::isSorted(*list);
         if (!Parameters::outputFile.empty()) {
-            FileIO::writeDoubleLinkedList(Parameters::outputFile, *list);
+            FileIO::writeDoublyLinkedList(Parameters::outputFile, *list);
         }
         delete list;
 

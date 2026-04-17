@@ -105,7 +105,7 @@ void BenchmarkMode::run() {
             isSorted = Validator::isSorted(copy);
         } 
         else if (Parameters::structure == Parameters::Structures::doubleList) {
-            DoubleLinkedList copy;
+            DoublyLinkedList copy;
             for (int j = Parameters::structureSize - 1; j >= 0; --j) {
                 copy.pushFront(baseArray.get(j));
             }

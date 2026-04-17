@@ -2,11 +2,11 @@
 
 class Array;
 class SinglyLinkedList;
-class DoubleLinkedList;
+class DoublyLinkedList;
 
 class QuickSort {
 public:
     static void sort(Array& arr);
     static void sort(SinglyLinkedList& list);
-    static void sort(DoubleLinkedList& list);
+    static void sort(DoublyLinkedList& list);
 };

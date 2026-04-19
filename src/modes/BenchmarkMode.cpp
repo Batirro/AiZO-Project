@@ -3,6 +3,9 @@
 #include "structures/Array.hpp"
 #include "structures/SinglyLinkedList.hpp"
 #include "structures/DoublyLinkedList.hpp"
+#include "structures/FloatArray.hpp"
+#include "structures/UnsignedArray.hpp"
+#include "structures/CharArray.hpp"
 #include "algorithms/InsertionSort.hpp"
 #include "algorithms/QuickSort.hpp"
 #include "algorithms/BucketSort.hpp"
@@ -59,7 +62,76 @@ void BenchmarkMode::run() {
     std::cout << "Liczba iteracji: " << Parameters::iterations << std::endl;
 
     // Generujemy wspólną bazę danych dla wszystkich iteracji
-    Array baseArray(Parameters::structureSize);
+    
+    if (Parameters::dataType != Parameters::DataTypes::typeInt && Parameters::dataType != Parameters::DataTypes::undefined) {
+        std::cout << "Rozpoczynam badanie C (Różne typy danych)...\n";
+        std::cout << "Rozmiar instancji: " << Parameters::structureSize << "\n";
+        
+        std::vector<long long> times;
+        
+        for (int i = 0; i < Parameters::iterations; ++i) {
+            Timer timer;
+            bool isSorted = false;
+            
+            if (Parameters::dataType == Parameters::DataTypes::typeFloat) {
+                FloatArray arr(Parameters::structureSize);
+                arr.fillRandom();
+                timer.start();
+                QuickSortMultiType::sort(arr);
+                timer.stop();
+                isSorted = ValidatorMultiType::isSorted(arr);
+            } 
+            else if (Parameters::dataType == Parameters::DataTypes::tyleUnsignedInt) {
+                UnsignedArray arr(Parameters::structureSize);
+                arr.fillRandom();
+                timer.start();
+                QuickSortMultiType::sort(arr);
+                timer.stop();
+                isSorted = ValidatorMultiType::isSorted(arr);
+            }
+            else if (Parameters::dataType == Parameters::DataTypes::typeChar) {
+                CharArray arr(Parameters::structureSize);
+                arr.fillRandom();
+                timer.start();
+                QuickSortMultiType::sort(arr);
+                timer.stop();
+                isSorted = ValidatorMultiType::isSorted(arr);
+            }
+            
+            times.push_back(timer.getMicroseconds());
+            if (!isSorted) std::cerr << "Błąd sortowania w iteracji " << i << "\n";
+            if ((i + 1) % 10 == 0 || i == Parameters::iterations - 1) {
+                std::cout << "Ukończono iterację: " << (i + 1) << " / " << Parameters::iterations << "\r" << std::flush;
+            }
+        }
+        std::cout << "\nBadanie C zakończone. Wyniki mozesz zobaczyc w zdefiniowanym CSV.\n";
+        
+        long long minTime = *std::min_element(times.begin(), times.end());
+        long long maxTime = *std::max_element(times.begin(), times.end());
+        long long sumTime = 0; for (long long t : times) sumTime += t;
+        double avgTime = static_cast<double>(sumTime) / Parameters::iterations;
+        
+        std::ofstream csv(Parameters::resultsFile, std::ios::app);
+        if (csv.is_open()) {
+            csv.seekp(0, std::ios::end);
+            if (csv.tellp() == 0) csv << "Date,Algorithm,Structure,DataType,Distribution,Size,Iterations,MinTime_us,MaxTime_us,AvgTime_us\n";
+            
+            auto now = std::chrono::system_clock::now();
+            auto in_time_t = std::chrono::system_clock::to_time_t(now);
+            
+            std::string dTypeStr = "Unknown";
+            if (Parameters::dataType == Parameters::DataTypes::typeFloat) dTypeStr = "Float";
+            if (Parameters::dataType == Parameters::DataTypes::tyleUnsignedInt) dTypeStr = "UnsignedInt";
+            if (Parameters::dataType == Parameters::DataTypes::typeChar) dTypeStr = "Char";
+
+            csv << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %H:%M:%S") << ","
+                << "QuickSort," << "Array," << dTypeStr << "," << getDistName(Parameters::distribution) << ","
+                << Parameters::structureSize << "," << Parameters::iterations << "," << minTime << "," << maxTime << "," << avgTime << "\n";
+            csv.close();
+        }
+        return;
+    }
+Array baseArray(Parameters::structureSize);
     
     // Wpływ rozkładu (Badanie B)
     if (Parameters::distribution == Parameters::Distribution::ascending) {

@@ -10,3 +10,13 @@ public:
     static void sort(SinglyLinkedList& list);
     static void sort(DoublyLinkedList& list);
 };
+class FloatArray;
+class UnsignedArray;
+class CharArray;
+
+class QuickSortMultiType {
+public:
+    static void sort(FloatArray& arr);
+    static void sort(UnsignedArray& arr);
+    static void sort(CharArray& arr);
+};

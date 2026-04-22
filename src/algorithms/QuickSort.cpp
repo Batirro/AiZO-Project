@@ -1,3 +1,4 @@
+#include "structures/Stack.hpp"
 #include "algorithms/QuickSort.hpp"
 #include "structures/Array.hpp"
 #include "structures/SinglyLinkedList.hpp"
@@ -128,5 +129,27 @@ void QuickSort::sort(DoublyLinkedList& list) {
 
     if (head && tail) {
         quickSortDLL(head, tail);
+    }
+}
+
+void QuickSort::sort(Stack& stack) {
+    int n = stack.getSize();
+    if (n <= 1) return;
+    
+    // Sortowanie stosu zgodnie ze sztuka (pop do tymczasowej tablicy, sort, i push z powrotem)
+    // O(n) na przepisanie + O(n log n) na sortowanie + O(n) na wrzucenie = O(n log n)
+    Array temp(n);
+    for (int i = 0; i < n; ++i) {
+        temp.set(i, stack.top());
+        stack.pop();
+    }
+    
+    QuickSort::sort(temp);
+    
+    // Zrzucenie z powrotem na stos (w odwrotnej kolejnosci, zeby najmniejsze byly na gorze / dnie w zaleznosci od definicji)
+    // Posortowany ciag: index 0 to najmniejszy.
+    // Chcemy by najmniejszy element u gory stosu (top), wiec najwiekszy musi byc pushniety pierwszy.
+    for (int i = n - 1; i >= 0; --i) {
+        stack.push(temp.get(i));
     }
 }

@@ -4,14 +4,17 @@
 class Array;
 class SinglyLinkedList;
 class DoublyLinkedList;
+class Stack;
 
 class FileIO {
 public:
     static Array* readArray(const std::string& filename);
     static SinglyLinkedList* readSinglyLinkedList(const std::string& filename);
     static DoublyLinkedList* readDoublyLinkedList(const std::string& filename);
+    static Stack* readStack(const std::string& filename);
 
     static bool writeArray(const std::string& filename, const Array& arr);
     static bool writeSinglyLinkedList(const std::string& filename, const SinglyLinkedList& list);
     static bool writeDoublyLinkedList(const std::string& filename, const DoublyLinkedList& list);
+    static bool writeStack(const std::string& filename, Stack& stack);
 };

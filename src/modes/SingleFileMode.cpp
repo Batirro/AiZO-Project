@@ -3,6 +3,7 @@
 #include "structures/Array.hpp"
 #include "structures/SinglyLinkedList.hpp"
 #include "structures/DoublyLinkedList.hpp"
+#include "structures/Stack.hpp"
 #include "algorithms/InsertionSort.hpp"
 #include "algorithms/QuickSort.hpp"
 #include "algorithms/BucketSort.hpp"
@@ -100,6 +101,29 @@ void SingleFileMode::run() {
             FileIO::writeDoublyLinkedList(Parameters::outputFile, *list);
         }
         delete list;
+
+    } else if (Parameters::structure == Parameters::Structures::stack) {
+        Stack* stack = FileIO::readStack(Parameters::inputFile);
+        if (!stack) {
+            std::cerr << "Błąd: Nie można wczytać pliku do stosu!" << std::endl;
+            return;
+        }
+
+        timer.start();
+        if (Parameters::algorithm == Parameters::Algorithms::quick) {
+            QuickSort::sort(*stack);
+        } else {
+            std::cerr << "Błąd: Na stosie obslugiwany jest tylko QuickSort!" << std::endl;
+            delete stack;
+            return;
+        }
+        timer.stop();
+
+        isSorted = Validator::isSorted(*stack);
+        if (!Parameters::outputFile.empty()) {
+            FileIO::writeStack(Parameters::outputFile, *stack);
+        }
+        delete stack;
 
     } else {
         std::cerr << "Błąd: Nieznana lub nieobsługiwana struktura danych!" << std::endl;

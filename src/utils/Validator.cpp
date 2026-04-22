@@ -1,3 +1,4 @@
+#include "structures/Stack.hpp"
 #include "utils/Validator.hpp"
 #include "structures/Array.hpp"
 #include "structures/SinglyLinkedList.hpp"
@@ -39,4 +40,33 @@ bool Validator::isSorted(const DoublyLinkedList& list) {
         curr = curr->next;
     }
     return true;
+}
+
+bool Validator::isSorted(Stack& stack) {
+    if (stack.isEmpty()) return true;
+    
+    int prev = stack.top();
+    stack.pop();
+    
+    Stack temp;
+    temp.push(prev);
+    
+    bool sorted = true;
+    while (!stack.isEmpty()) {
+        int curr = stack.top();
+        stack.pop();
+        temp.push(curr);
+        
+        if (prev > curr) {
+            sorted = false;
+            break;
+        }
+        prev = curr;
+    }
+    
+    while (!temp.isEmpty()) {
+        stack.push(temp.top());
+        temp.pop();
+    }
+    return sorted;
 }

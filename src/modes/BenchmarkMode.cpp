@@ -3,6 +3,7 @@
 #include "structures/Array.hpp"
 #include "structures/SinglyLinkedList.hpp"
 #include "structures/DoublyLinkedList.hpp"
+#include "structures/Stack.hpp"
 #include "structures/FloatArray.hpp"
 #include "structures/UnsignedArray.hpp"
 #include "structures/CharArray.hpp"
@@ -34,6 +35,7 @@ static std::string getStructName(Parameters::Structures str) {
         case Parameters::Structures::array: return "Array";
         case Parameters::Structures::singleList: return "SinglyLinkedList";
         case Parameters::Structures::doubleList: return "DoublyLinkedList";
+        case Parameters::Structures::stack: return "Stack";
         default: return "Unsupported/Unknown";
     }
 }
@@ -191,6 +193,20 @@ Array baseArray(Parameters::structureSize);
             isSorted = Validator::isSorted(copy);
         }
 
+        
+        else if (Parameters::structure == Parameters::Structures::stack) {
+            Stack copy;
+            for (int j = Parameters::structureSize - 1; j >= 0; --j) {
+                copy.push(baseArray.get(j));
+            }
+            
+            timer.start();
+            if (Parameters::algorithm == Parameters::Algorithms::quick) QuickSort::sort(copy);
+            else std::cerr << "Algorytm nie obsluguje stosu na ocene 4.0! Uzyj quick.\n";
+            timer.stop();
+            
+            isSorted = Validator::isSorted(copy);
+        }
         if (!isSorted) {
             std::cerr << "\nBłąd weryfikacji w iteracji " << i << "! Struktura nie została poprawnie posortowana." << std::endl;
         }

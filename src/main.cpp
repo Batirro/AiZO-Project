@@ -4,7 +4,7 @@
 #include "modes/BenchmarkMode.hpp"
 
 int main(int argc, char **argv) {
-    int result = Parameters::readParameters(argc, argv);
+    int result = Parameters::readParameters(argc - 1, argv + 1);
     if (result != 0) {
         std::cerr << "Błąd wczytywania parametrów." << std::endl;
         return 1;

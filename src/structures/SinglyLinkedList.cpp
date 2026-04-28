@@ -2,7 +2,7 @@
 #include <stdexcept>
 
 
-SinglyLinkedList::SinglyLinkedList() : head(nullptr), size(0) {}
+SinglyLinkedList::SinglyLinkedList() : head(nullptr), size(0) {} // Konstruktor domyślny
 
 SinglyLinkedList::~SinglyLinkedList() {
     Node* current = head;

@@ -64,17 +64,17 @@ void BenchmarkMode::run() {
     std::cout << "Liczba iteracji: " << Parameters::iterations << std::endl;
 
     // Generujemy wspólną bazę danych dla wszystkich iteracji
-    
+
     if (Parameters::dataType != Parameters::DataTypes::typeInt && Parameters::dataType != Parameters::DataTypes::undefined) {
         std::cout << "Rozpoczynam badanie C (Różne typy danych)...\n";
         std::cout << "Rozmiar instancji: " << Parameters::structureSize << "\n";
-        
+
         std::vector<long long> times;
-        
+
         for (int i = 0; i < Parameters::iterations; ++i) {
             Timer timer;
             bool isSorted = false;
-            
+
             if (Parameters::dataType == Parameters::DataTypes::typeFloat) {
                 FloatArray arr(Parameters::structureSize);
                 arr.fillRandom();
@@ -82,7 +82,7 @@ void BenchmarkMode::run() {
                 QuickSortMultiType::sort(arr);
                 timer.stop();
                 isSorted = ValidatorMultiType::isSorted(arr);
-            } 
+            }
             else if (Parameters::dataType == Parameters::DataTypes::tyleUnsignedInt) {
                 UnsignedArray arr(Parameters::structureSize);
                 arr.fillRandom();
@@ -99,7 +99,7 @@ void BenchmarkMode::run() {
                 timer.stop();
                 isSorted = ValidatorMultiType::isSorted(arr);
             }
-            
+
             times.push_back(timer.getMicroseconds());
             if (!isSorted) std::cerr << "Błąd sortowania w iteracji " << i << "\n";
             if ((i + 1) % 10 == 0 || i == Parameters::iterations - 1) {
@@ -107,20 +107,20 @@ void BenchmarkMode::run() {
             }
         }
         std::cout << "\nBadanie C zakończone. Wyniki mozesz zobaczyc w zdefiniowanym CSV.\n";
-        
+
         long long minTime = *std::min_element(times.begin(), times.end());
         long long maxTime = *std::max_element(times.begin(), times.end());
         long long sumTime = 0; for (long long t : times) sumTime += t;
         double avgTime = static_cast<double>(sumTime) / Parameters::iterations;
-        
+
         std::ofstream csv(Parameters::resultsFile, std::ios::app);
         if (csv.is_open()) {
             csv.seekp(0, std::ios::end);
             if (csv.tellp() == 0) csv << "Date,Algorithm,Structure,DataType,Distribution,Size,Iterations,MinTime_us,MaxTime_us,AvgTime_us\n";
-            
+
             auto now = std::chrono::system_clock::now();
             auto in_time_t = std::chrono::system_clock::to_time_t(now);
-            
+
             std::string dTypeStr = "Unknown";
             if (Parameters::dataType == Parameters::DataTypes::typeFloat) dTypeStr = "Float";
             if (Parameters::dataType == Parameters::DataTypes::tyleUnsignedInt) dTypeStr = "UnsignedInt";
@@ -134,7 +134,7 @@ void BenchmarkMode::run() {
         return;
     }
 Array baseArray(Parameters::structureSize);
-    
+
     // Wpływ rozkładu (Badanie B)
     if (Parameters::distribution == Parameters::Distribution::ascending) {
         baseArray.fillSorted(true);
@@ -155,56 +155,56 @@ Array baseArray(Parameters::structureSize);
 
         if (Parameters::structure == Parameters::Structures::array) {
             Array copy = baseArray; // Zwykła kopia
-            
+
             timer.start();
             if (Parameters::algorithm == Parameters::Algorithms::insertion) InsertionSort::sort(copy);
             else if (Parameters::algorithm == Parameters::Algorithms::quick) QuickSort::sort(copy);
             else if (Parameters::algorithm == Parameters::Algorithms::bucket) BucketSort::sort(copy);
             timer.stop();
-            
+
             isSorted = Validator::isSorted(copy);
-        } 
+        }
         else if (Parameters::structure == Parameters::Structures::singleList) {
             SinglyLinkedList copy;
             for (int j = Parameters::structureSize - 1; j >= 0; --j) {
                 copy.pushFront(baseArray.get(j));
             }
-            
+
             timer.start();
             if (Parameters::algorithm == Parameters::Algorithms::insertion) InsertionSort::sort(copy);
             else if (Parameters::algorithm == Parameters::Algorithms::quick) QuickSort::sort(copy);
             else if (Parameters::algorithm == Parameters::Algorithms::bucket) BucketSort::sort(copy);
             timer.stop();
-            
+
             isSorted = Validator::isSorted(copy);
-        } 
+        }
         else if (Parameters::structure == Parameters::Structures::doubleList) {
             DoublyLinkedList copy;
             for (int j = Parameters::structureSize - 1; j >= 0; --j) {
                 copy.pushFront(baseArray.get(j));
             }
-            
+
             timer.start();
             if (Parameters::algorithm == Parameters::Algorithms::insertion) InsertionSort::sort(copy);
             else if (Parameters::algorithm == Parameters::Algorithms::quick) QuickSort::sort(copy);
             else if (Parameters::algorithm == Parameters::Algorithms::bucket) BucketSort::sort(copy);
             timer.stop();
-            
+
             isSorted = Validator::isSorted(copy);
         }
 
-        
+
         else if (Parameters::structure == Parameters::Structures::stack) {
             Stack copy;
             for (int j = Parameters::structureSize - 1; j >= 0; --j) {
                 copy.push(baseArray.get(j));
             }
-            
+
             timer.start();
             if (Parameters::algorithm == Parameters::Algorithms::quick) QuickSort::sort(copy);
-            else std::cerr << "Algorytm nie obsluguje stosu na ocene 4.0! Uzyj quick.\n";
+            else std::cerr << "Wybrany algorytm nie jest obsługiwany dla tej struktury danych. Proszę wybrać inny algorytm.\n";
             timer.stop();
-            
+
             isSorted = Validator::isSorted(copy);
         }
         if (!isSorted) {
@@ -244,7 +244,7 @@ Array baseArray(Parameters::structureSize);
             << minTime << ","
             << maxTime << ","
             << avgTime << "\n";
-        
+
         csv.close();
         std::cout << "Zapisano wyniki do pliku: " << Parameters::resultsFile << std::endl;
     } else {

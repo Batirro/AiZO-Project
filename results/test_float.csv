@@ -1,0 +1,2 @@
+Date,Algorithm,Structure,DataType,Distribution,Size,Iterations,MinTime_us,MaxTime_us,AvgTime_us
+2026-05-10 15:26:40,QuickSort,Array,Float,Random,10000,1,1657,1657,1657

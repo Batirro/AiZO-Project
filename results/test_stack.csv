@@ -1,0 +1,2 @@
+Date,Algorithm,Structure,Distribution,Size,Iterations,MinTime_us,MaxTime_us,AvgTime_us
+2026-05-10 15:26:34,QuickSort,Stack,Random,10000,1,2528,2528,2528

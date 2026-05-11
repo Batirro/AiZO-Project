@@ -1,0 +1,5 @@
+Date,Algorithm,Structure,Distribution,Size,Iterations,MinTime_us,MaxTime_us,AvgTime_us
+2026-05-10 15:50:51,QuickSort,Array,Random,25000,50,5278,5664,5323.86
+2026-05-10 15:50:51,QuickSort,SinglyLinkedList,Random,25000,50,5310,6271,5441.72
+2026-05-10 15:50:51,QuickSort,DoublyLinkedList,Random,25000,50,4586,4826,4662.18
+2026-05-10 15:50:52,QuickSort,Stack,Random,25000,50,6730,7026,6767.14

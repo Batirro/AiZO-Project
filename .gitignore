@@ -43,8 +43,8 @@
 # CMake build directories
 build/
 cmake-build-*/
--e 
+-e
 # Ignorowane pliki i foldery pomocnicze
-results/
 results.tar.gz
+report/
 .zed/

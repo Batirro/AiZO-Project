@@ -1,0 +1,9 @@
+Date,Algorithm,Structure,Distribution,Size,Iterations,MinTime_us,MaxTime_us,AvgTime_us
+2026-05-10 15:46:40,QuickSort,Array,Random,25000,50,5185,5599,5223.66
+2026-05-10 15:46:40,QuickSort,Array,Ascending,25000,50,1757,2068,1779.66
+2026-05-10 15:46:40,QuickSort,Array,Ascending 50%,25000,50,4998,5815,5039.58
+2026-05-10 15:46:41,QuickSort,Array,Descending,25000,50,1921,2250,1943.94
+2026-05-10 15:46:41,QuickSort,DoublyLinkedList,Random,25000,50,4579,5031,4635.62
+2026-05-10 15:49:08,QuickSort,DoublyLinkedList,Ascending,25000,50,2919071,3168706,2.95017e+06
+2026-05-10 15:49:09,QuickSort,DoublyLinkedList,Ascending 50%,25000,50,4743,5487,4851.8
+2026-05-10 15:50:49,QuickSort,DoublyLinkedList,Descending,25000,50,1965737,2059497,2.00877e+06

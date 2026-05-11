@@ -1,0 +1,2 @@
+Date,Algorithm,Structure,Distribution,Size,Iterations,MinTime_us,MaxTime_us,AvgTime_us
+2026-05-10 15:26:21,InsertionSort,Array,Random,25000,2,1611905,1614550,1.61323e+06

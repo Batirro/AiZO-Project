@@ -4,6 +4,9 @@
 #include "structures/SinglyLinkedList.hpp"
 #include "structures/DoublyLinkedList.hpp"
 #include "structures/Stack.hpp"
+#include "structures/FloatArray.hpp"
+#include "structures/UnsignedArray.hpp"
+#include "structures/CharArray.hpp"
 #include "algorithms/InsertionSort.hpp"
 #include "algorithms/QuickSort.hpp"
 #include "algorithms/BucketSort.hpp"
@@ -20,6 +23,92 @@ void SingleFileMode::run() {
 
     Timer timer;
     bool isSorted = false;
+
+    // Obsługa różnych typów danych (float, unsigned int, char)
+    if (Parameters::dataType != Parameters::DataTypes::typeInt && 
+        Parameters::dataType != Parameters::DataTypes::undefined) {
+        
+        if (Parameters::dataType == Parameters::DataTypes::typeFloat) {
+            FloatArray* arr = FileIO::readFloatArray(Parameters::inputFile);
+            if (!arr) {
+                std::cerr << "Błąd: Nie można wczytać pliku do tablicy float!" << std::endl;
+                return;
+            }
+
+            timer.start();
+            if (Parameters::algorithm == Parameters::Algorithms::quick) {
+                QuickSortMultiType::sort(*arr);
+            } else {
+                std::cerr << "Błąd: Dla typu float obsługiwany jest tylko QuickSort!" << std::endl;
+                delete arr;
+                return;
+            }
+            timer.stop();
+
+            isSorted = ValidatorMultiType::isSorted(*arr);
+            if (!Parameters::outputFile.empty()) {
+                FileIO::writeFloatArray(Parameters::outputFile, *arr);
+            }
+            delete arr;
+
+        } else if (Parameters::dataType == Parameters::DataTypes::tyleUnsignedInt) {
+            UnsignedArray* arr = FileIO::readUnsignedArray(Parameters::inputFile);
+            if (!arr) {
+                std::cerr << "Błąd: Nie można wczytać pliku do tablicy unsigned int!" << std::endl;
+                return;
+            }
+
+            timer.start();
+            if (Parameters::algorithm == Parameters::Algorithms::quick) {
+                QuickSortMultiType::sort(*arr);
+            } else {
+                std::cerr << "Błąd: Dla typu unsigned int obsługiwany jest tylko QuickSort!" << std::endl;
+                delete arr;
+                return;
+            }
+            timer.stop();
+
+            isSorted = ValidatorMultiType::isSorted(*arr);
+            if (!Parameters::outputFile.empty()) {
+                FileIO::writeUnsignedArray(Parameters::outputFile, *arr);
+            }
+            delete arr;
+
+        } else if (Parameters::dataType == Parameters::DataTypes::typeChar) {
+            CharArray* arr = FileIO::readCharArray(Parameters::inputFile);
+            if (!arr) {
+                std::cerr << "Błąd: Nie można wczytać pliku do tablicy char!" << std::endl;
+                return;
+            }
+
+            timer.start();
+            if (Parameters::algorithm == Parameters::Algorithms::quick) {
+                QuickSortMultiType::sort(*arr);
+            } else {
+                std::cerr << "Błąd: Dla typu char obsługiwany jest tylko QuickSort!" << std::endl;
+                delete arr;
+                return;
+            }
+            timer.stop();
+
+            isSorted = ValidatorMultiType::isSorted(*arr);
+            if (!Parameters::outputFile.empty()) {
+                FileIO::writeCharArray(Parameters::outputFile, *arr);
+            }
+            delete arr;
+
+        } else {
+            std::cerr << "Błąd: Nieobsługiwany typ danych!" << std::endl;
+            return;
+        }
+
+        std::cout << "Sortowanie zakończone." << std::endl;
+        std::cout << "Czas sortowania: " << timer.getMicroseconds() << " mikrosekund." << std::endl;
+        std::cout << "Poprawność sortowania: " << (isSorted ? "TAK (Rosnąco)" : "NIE") << std::endl;
+        return;
+    }
+
+    // Domyślna obsługa dla int (istniejący kod)
 
     if (Parameters::structure == Parameters::Structures::array) {
         Array* arr = FileIO::readArray(Parameters::inputFile);

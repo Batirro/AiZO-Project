@@ -17,4 +17,5 @@ public:
     int top() const;
     bool isEmpty() const;
     int getSize() const;
+    DoublyLinkedList& getList() { return list; }
 };

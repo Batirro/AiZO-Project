@@ -3,6 +3,9 @@
 #include "structures/Array.hpp"
 #include "structures/SinglyLinkedList.hpp"
 #include "structures/DoublyLinkedList.hpp"
+#include "structures/FloatArray.hpp"
+#include "structures/UnsignedArray.hpp"
+#include "structures/CharArray.hpp"
 #include <fstream>
 #include <iostream>
 
@@ -115,6 +118,78 @@ Stack* FileIO::readStack(const std::string& filename) {
     file.close();
     return stack;
 }
+FloatArray* FileIO::readFloatArray(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) return nullptr;
+    int size;
+    if (!(file >> size)) return nullptr;
+    FloatArray* arr = new FloatArray(size);
+    float value;
+    for (int i = 0; i < size; ++i) {
+        if (file >> value) arr->set(i, value);
+    }
+    file.close();
+    return arr;
+}
+
+UnsignedArray* FileIO::readUnsignedArray(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) return nullptr;
+    int size;
+    if (!(file >> size)) return nullptr;
+    UnsignedArray* arr = new UnsignedArray(size);
+    unsigned int value;
+    for (int i = 0; i < size; ++i) {
+        if (file >> value) arr->set(i, value);
+    }
+    file.close();
+    return arr;
+}
+
+CharArray* FileIO::readCharArray(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) return nullptr;
+    int size;
+    if (!(file >> size)) return nullptr;
+    CharArray* arr = new CharArray(size);
+    char value;
+    for (int i = 0; i < size; ++i) {
+        if (file >> value) arr->set(i, value);
+    }
+    file.close();
+    return arr;
+}
+
+bool FileIO::writeFloatArray(const std::string& filename, const FloatArray& arr) {
+    std::ofstream file(filename);
+    if (!file.is_open()) return false;
+    int size = arr.getSize();
+    file << size << "\n";
+    for (int i = 0; i < size; ++i) file << arr.get(i) << "\n";
+    file.close();
+    return true;
+}
+
+bool FileIO::writeUnsignedArray(const std::string& filename, const UnsignedArray& arr) {
+    std::ofstream file(filename);
+    if (!file.is_open()) return false;
+    int size = arr.getSize();
+    file << size << "\n";
+    for (int i = 0; i < size; ++i) file << arr.get(i) << "\n";
+    file.close();
+    return true;
+}
+
+bool FileIO::writeCharArray(const std::string& filename, const CharArray& arr) {
+    std::ofstream file(filename);
+    if (!file.is_open()) return false;
+    int size = arr.getSize();
+    file << size << "\n";
+    for (int i = 0; i < size; ++i) file << arr.get(i) << "\n";
+    file.close();
+    return true;
+}
+
 bool FileIO::writeStack(const std::string& filename, Stack& stack) {
     std::ofstream file(filename);
     if (!file.is_open()) return false;

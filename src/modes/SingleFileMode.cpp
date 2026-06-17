@@ -4,6 +4,9 @@
 #include "structures/SinglyLinkedList.hpp"
 #include "structures/DoublyLinkedList.hpp"
 #include "structures/Stack.hpp"
+#include "structures/FloatArray.hpp"
+#include "structures/UnsignedArray.hpp"
+#include "structures/CharArray.hpp"
 #include "algorithms/InsertionSort.hpp"
 #include "algorithms/QuickSort.hpp"
 #include "algorithms/BucketSort.hpp"
@@ -21,7 +24,49 @@ void SingleFileMode::run() {
     Timer timer;
     bool isSorted = false;
 
-    if (Parameters::structure == Parameters::Structures::array) {
+    if (Parameters::dataType == Parameters::DataTypes::typeFloat
+        || Parameters::dataType == Parameters::DataTypes::tyleUnsignedInt
+        || Parameters::dataType == Parameters::DataTypes::typeChar) {
+
+        if (Parameters::algorithm != Parameters::Algorithms::quick) {
+            std::cerr << "Błąd: Dla tego typu danych obsługiwany jest tylko QuickSort!" << std::endl;
+            return;
+        }
+        if (Parameters::structure != Parameters::Structures::array && Parameters::structure != Parameters::Structures::undefined) {
+            std::cerr << "Błąd: Dla tego typu danych obsługiwana jest tylko tablica!" << std::endl;
+            return;
+        }
+
+        if (Parameters::dataType == Parameters::DataTypes::typeFloat) {
+            FloatArray* arr = FileIO::readFloatArray(Parameters::inputFile);
+            if (!arr) { std::cerr << "Błąd: Nie można wczytać pliku do FloatArray!" << std::endl; return; }
+            timer.start();
+            QuickSortMultiType::sort(*arr);
+            timer.stop();
+            isSorted = ValidatorMultiType::isSorted(*arr);
+            if (!Parameters::outputFile.empty()) FileIO::writeFloatArray(Parameters::outputFile, *arr);
+            delete arr;
+        } else if (Parameters::dataType == Parameters::DataTypes::tyleUnsignedInt) {
+            UnsignedArray* arr = FileIO::readUnsignedArray(Parameters::inputFile);
+            if (!arr) { std::cerr << "Błąd: Nie można wczytać pliku do UnsignedArray!" << std::endl; return; }
+            timer.start();
+            QuickSortMultiType::sort(*arr);
+            timer.stop();
+            isSorted = ValidatorMultiType::isSorted(*arr);
+            if (!Parameters::outputFile.empty()) FileIO::writeUnsignedArray(Parameters::outputFile, *arr);
+            delete arr;
+        } else {
+            CharArray* arr = FileIO::readCharArray(Parameters::inputFile);
+            if (!arr) { std::cerr << "Błąd: Nie można wczytać pliku do CharArray!" << std::endl; return; }
+            timer.start();
+            QuickSortMultiType::sort(*arr);
+            timer.stop();
+            isSorted = ValidatorMultiType::isSorted(*arr);
+            if (!Parameters::outputFile.empty()) FileIO::writeCharArray(Parameters::outputFile, *arr);
+            delete arr;
+        }
+
+    } else if (Parameters::structure == Parameters::Structures::array) {
         Array* arr = FileIO::readArray(Parameters::inputFile);
         if (!arr) {
             std::cerr << "Błąd: Nie można wczytać pliku do tablicy!" << std::endl;
